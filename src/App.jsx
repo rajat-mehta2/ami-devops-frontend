@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const     [text, setText] = useState("")
+
+  useEffect(() => {
+    fetch("http://localhost:3001/users").then(res => {
+      return res.text()
+    }).then(res => {
+      setText(res)
+    })
+  },[])
 
   return (
     <>
@@ -28,6 +38,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <p>this is API response: {text}</p>
     </>
   )
 }
